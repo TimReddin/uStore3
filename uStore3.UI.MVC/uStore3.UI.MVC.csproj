@@ -186,6 +186,7 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\201902221655-uStore3-WithIdentity.sql" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
@@ -253,7 +254,10 @@
     <Content Include="Views\Account\DisplayEmail.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
+    <ProjectReference Include="..\..\uStore3.DATA.EF\uStore3.DATA.EF.csproj">
+      <Project>{3059e8ed-b70c-4c06-bb1a-c6d0216270c1}</Project>
+      <Name>uStore3.DATA.EF</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
