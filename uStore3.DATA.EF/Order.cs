@@ -12,27 +12,21 @@ namespace uStore3.DATA.EF
     using System;
     using System.Collections.Generic;
     
-    public partial class Product
+    public partial class Order
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Product()
+        public Order()
         {
-            this.ProductCategories = new HashSet<ProductCategory>();
             this.ProductOrders = new HashSet<ProductOrder>();
+            this.UserOrders = new HashSet<UserOrder>();
         }
     
-        public int ProductId { get; set; }
-        public string ProductName { get; set; }
-        public string ProductDescription { get; set; }
-        public Nullable<decimal> Price { get; set; }
-        public Nullable<short> UnitsInStock { get; set; }
-        public string ProductImage { get; set; }
-        public byte ProductStatusId { get; set; }
+        public int OrderId { get; set; }
+        public System.DateTime OrderDate { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ProductCategory> ProductCategories { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProductOrder> ProductOrders { get; set; }
-        public virtual ProductStatus ProductStatus { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<UserOrder> UserOrders { get; set; }
     }
 }

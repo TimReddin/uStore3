@@ -47,6 +47,7 @@
     <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
     <NavigationProperty Name="AspNetUserClaims" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
     <NavigationProperty Name="AspNetUserLogins" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
+    <NavigationProperty Name="UserOrders" Relationship="Self.FK_UserOrders_AspNetUsers" FromRole="AspNetUsers" ToRole="UserOrders" />
     <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
   </EntityType>
   <EntityType Name="Category">
@@ -57,6 +58,15 @@
     <Property Name="CategoryName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
     <NavigationProperty Name="ProductCategories" Relationship="Self.FK_ProductCategories_Categories" FromRole="Categories" ToRole="ProductCategories" />
   </EntityType>
+  <EntityType Name="Order">
+    <Key>
+      <PropertyRef Name="OrderId" />
+    </Key>
+    <Property Name="OrderId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="OrderDate" Type="DateTime" Nullable="false" Precision="0" />
+    <NavigationProperty Name="ProductOrders" Relationship="Self.FK_ProductOrders_Orders" FromRole="Orders" ToRole="ProductOrders" />
+    <NavigationProperty Name="UserOrders" Relationship="Self.FK_UserOrders_Orders" FromRole="Orders" ToRole="UserOrders" />
+  </EntityType>
   <EntityType Name="ProductCategory">
     <Key>
       <PropertyRef Name="ProductCategoryId" />
@@ -66,6 +76,18 @@
     <Property Name="ProductId" Type="Int32" Nullable="false" />
     <NavigationProperty Name="Category" Relationship="Self.FK_ProductCategories_Categories" FromRole="ProductCategories" ToRole="Categories" />
     <NavigationProperty Name="Product" Relationship="Self.FK_ProductCategories_Products" FromRole="ProductCategories" ToRole="Products" />
+  </EntityType>
+  <EntityType Name="ProductOrder">
+    <Key>
+      <PropertyRef Name="ProductOrderId" />
+    </Key>
+    <Property Name="ProductOrderId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="OrderId" Type="Int32" Nullable="false" />
+    <Property Name="ProductId" Type="Int32" Nullable="false" />
+    <Property Name="ProductQuantity" Type="Int32" Nullable="false" />
+    <Property Name="UnitPrice" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+    <NavigationProperty Name="Order" Relationship="Self.FK_ProductOrders_Orders" FromRole="ProductOrders" ToRole="Orders" />
+    <NavigationProperty Name="Product" Relationship="Self.FK_ProductOrders_Products" FromRole="ProductOrders" ToRole="Products" />
   </EntityType>
   <EntityType Name="Product">
     <Key>
@@ -79,6 +101,7 @@
     <Property Name="ProductImage" Type="String" MaxLength="75" FixedLength="false" Unicode="false" />
     <Property Name="ProductStatusId" Type="Byte" Nullable="false" />
     <NavigationProperty Name="ProductCategories" Relationship="Self.FK_ProductCategories_Products" FromRole="Products" ToRole="ProductCategories" />
+    <NavigationProperty Name="ProductOrders" Relationship="Self.FK_ProductOrders_Products" FromRole="Products" ToRole="ProductOrders" />
     <NavigationProperty Name="ProductStatus" Relationship="Self.FK_Products_ProductStatuses" FromRole="Products" ToRole="ProductStatuses" />
   </EntityType>
   <EntityType Name="ProductStatus">
@@ -88,6 +111,16 @@
     <Property Name="ProductStatusId" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="StatusName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
     <NavigationProperty Name="Products" Relationship="Self.FK_Products_ProductStatuses" FromRole="ProductStatuses" ToRole="Products" />
+  </EntityType>
+  <EntityType Name="UserOrder">
+    <Key>
+      <PropertyRef Name="UserOrderId" />
+    </Key>
+    <Property Name="UserOrderId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AspNetUserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="OrderId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="AspNetUser" Relationship="Self.FK_UserOrders_AspNetUsers" FromRole="UserOrders" ToRole="AspNetUsers" />
+    <NavigationProperty Name="Order" Relationship="Self.FK_UserOrders_Orders" FromRole="UserOrders" ToRole="Orders" />
   </EntityType>
   <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
     <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
@@ -117,6 +150,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_UserOrders_AspNetUsers">
+    <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
+    <End Role="UserOrders" Type="Self.UserOrder" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserOrders">
+        <PropertyRef Name="AspNetUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_ProductCategories_Categories">
     <End Role="Categories" Type="Self.Category" Multiplicity="1" />
     <End Role="ProductCategories" Type="Self.ProductCategory" Multiplicity="*" />
@@ -129,6 +174,30 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_ProductOrders_Orders">
+    <End Role="Orders" Type="Self.Order" Multiplicity="1" />
+    <End Role="ProductOrders" Type="Self.ProductOrder" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Orders">
+        <PropertyRef Name="OrderId" />
+      </Principal>
+      <Dependent Role="ProductOrders">
+        <PropertyRef Name="OrderId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserOrders_Orders">
+    <End Role="Orders" Type="Self.Order" Multiplicity="1" />
+    <End Role="UserOrders" Type="Self.UserOrder" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Orders">
+        <PropertyRef Name="OrderId" />
+      </Principal>
+      <Dependent Role="UserOrders">
+        <PropertyRef Name="OrderId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_ProductCategories_Products">
     <End Role="Products" Type="Self.Product" Multiplicity="1" />
     <End Role="ProductCategories" Type="Self.ProductCategory" Multiplicity="*" />
@@ -137,6 +206,18 @@
         <PropertyRef Name="ProductId" />
       </Principal>
       <Dependent Role="ProductCategories">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProductOrders_Products">
+    <End Role="Products" Type="Self.Product" Multiplicity="1" />
+    <End Role="ProductOrders" Type="Self.ProductOrder" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Products">
+        <PropertyRef Name="ProductId" />
+      </Principal>
+      <Dependent Role="ProductOrders">
         <PropertyRef Name="ProductId" />
       </Dependent>
     </ReferentialConstraint>
@@ -163,9 +244,12 @@
     <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogin" />
     <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUser" />
     <EntitySet Name="Categories" EntityType="Self.Category" />
+    <EntitySet Name="Orders" EntityType="Self.Order" />
     <EntitySet Name="ProductCategories" EntityType="Self.ProductCategory" />
+    <EntitySet Name="ProductOrders" EntityType="Self.ProductOrder" />
     <EntitySet Name="Products" EntityType="Self.Product" />
     <EntitySet Name="ProductStatuses" EntityType="Self.ProductStatus" />
+    <EntitySet Name="UserOrders" EntityType="Self.UserOrder" />
     <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
       <End Role="AspNetUsers" EntitySet="AspNetUsers" />
       <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
@@ -174,13 +258,29 @@
       <End Role="AspNetUsers" EntitySet="AspNetUsers" />
       <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
     </AssociationSet>
+    <AssociationSet Name="FK_UserOrders_AspNetUsers" Association="Self.FK_UserOrders_AspNetUsers">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="UserOrders" EntitySet="UserOrders" />
+    </AssociationSet>
     <AssociationSet Name="FK_ProductCategories_Categories" Association="Self.FK_ProductCategories_Categories">
       <End Role="Categories" EntitySet="Categories" />
       <End Role="ProductCategories" EntitySet="ProductCategories" />
     </AssociationSet>
+    <AssociationSet Name="FK_ProductOrders_Orders" Association="Self.FK_ProductOrders_Orders">
+      <End Role="Orders" EntitySet="Orders" />
+      <End Role="ProductOrders" EntitySet="ProductOrders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserOrders_Orders" Association="Self.FK_UserOrders_Orders">
+      <End Role="Orders" EntitySet="Orders" />
+      <End Role="UserOrders" EntitySet="UserOrders" />
+    </AssociationSet>
     <AssociationSet Name="FK_ProductCategories_Products" Association="Self.FK_ProductCategories_Products">
       <End Role="Products" EntitySet="Products" />
       <End Role="ProductCategories" EntitySet="ProductCategories" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProductOrders_Products" Association="Self.FK_ProductOrders_Products">
+      <End Role="Products" EntitySet="Products" />
+      <End Role="ProductOrders" EntitySet="ProductOrders" />
     </AssociationSet>
     <AssociationSet Name="FK_Products_ProductStatuses" Association="Self.FK_Products_ProductStatuses">
       <End Role="ProductStatuses" EntitySet="ProductStatuses" />

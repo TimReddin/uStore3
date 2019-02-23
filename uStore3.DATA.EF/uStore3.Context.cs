@@ -30,8 +30,11 @@ namespace uStore3.DATA.EF
         public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
         public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
+        public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<ProductCategory> ProductCategories { get; set; }
+        public virtual DbSet<ProductOrder> ProductOrders { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<ProductStatus> ProductStatuses { get; set; }
+        public virtual DbSet<UserOrder> UserOrders { get; set; }
     }
 }
