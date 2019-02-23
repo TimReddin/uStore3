@@ -67,6 +67,10 @@
       <DependentUpon>uStore3.tt</DependentUpon>
     </Compile>
     <Compile Include="Class1.cs" />
+    <Compile Include="Metadata\CategoryMetadatacs.cs" />
+    <Compile Include="Metadata\ProductCategoryMetadata.cs" />
+    <Compile Include="Metadata\ProductMetadata.cs" />
+    <Compile Include="Metadata\ProductStatusMetadata.cs" />
     <Compile Include="Product.cs">
       <DependentUpon>uStore3.tt</DependentUpon>
     </Compile>
