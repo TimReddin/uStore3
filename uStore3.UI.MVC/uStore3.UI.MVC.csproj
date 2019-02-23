@@ -197,6 +197,7 @@
     <Content Include="App_Data\20190223-uStore3-AddedOrderTables.sql" />
     <Content Include="App_Data\201902230902-uStore3-AfterDataEntry.sql" />
     <Content Include="App_Data\201902231502- uStore3-ProperScriptSetings.sql" />
+    <Content Include="App_Data\201902231700- uStore3-WithOrders.sql" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\css\animate.css" />
