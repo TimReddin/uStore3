@@ -1,0 +1,93 @@
+﻿/**********************
+     Form Validation    
+***********************/
+
+.invalid {
+    display: inline-block;
+    margin-top: 5px;
+    padding: 5px;
+    color: #f00;
+    font-weight: bold;
+}
+
+/**************
+ Admin side navigation   
+ *************/
+
+.sidenav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background-color: rgba(0, 0, 0, .9);
+    overflow-x: hidden;
+    padding-top: 50px;
+    transition: .5s;
+    width: 0px; /* width will change using JS when we ckick to open*/
+    z-index: 3;
+}
+
+    .sidenav a {
+        padding: 8px 8px 8px 24px;
+        text-decoration: none;
+        font-size: 1em;
+        color: #818181;
+        display: block;
+        transition: .3s;
+    }
+
+        .sidenav a:hover {
+            color: #f1f1f1;
+        }
+
+.closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px !important;
+}
+
+.button {
+    background-color: rgba(0, 0, 0, .5);
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 20px;
+    cursor: pointer;
+    z-index: 3;
+}
+
+.vertical-text {
+    position: absolute;
+    left: -15px;
+    top: 30px;
+    color: white;
+    font-weight: bold;
+    /*writing-mode: vertical-lr;*/
+    /* 
+    writing-mode is an experimental tech - might not work for all browsers.
+    */
+    transform: rotate(90deg);
+}
+
+.box-img {
+    width: 402px;
+    height: auto;
+    margin: auto;
+}
+
+.petermaryjane {
+    width: auto;
+    height: 500px;
+    margin: auto;
+}
+
+
+
+/*.owl-carousel .owl-item img{
+    width:50%;
+    height:75%;
+    margin:auto;
+}*/
+
