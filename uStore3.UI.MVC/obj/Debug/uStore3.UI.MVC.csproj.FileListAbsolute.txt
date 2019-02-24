@@ -69,3 +69,5 @@ C:\Users\student\Documents\Visual Studio 2015\Projects\uStore3\src\uStore3.UI.MV
 C:\Users\student\Documents\Visual Studio 2015\Projects\uStore3\src\uStore3.UI.MVC\obj\Debug\uStore3.UI.MVC.pdb
 C:\Users\student\Documents\Visual Studio 2015\Projects\uStore3\src\uStore3.UI.MVC\bin\uStore3.DATA.EF.dll
 C:\Users\student\Documents\Visual Studio 2015\Projects\uStore3\src\uStore3.UI.MVC\bin\uStore3.DATA.EF.pdb
+C:\Users\student\Documents\Visual Studio 2015\Projects\uStore3\src\uStore3.UI.MVC\bin\uStore3.SERVICES.dll
+C:\Users\student\Documents\Visual Studio 2015\Projects\uStore3\src\uStore3.UI.MVC\bin\uStore3.SERVICES.pdb

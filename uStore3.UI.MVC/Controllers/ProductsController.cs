@@ -2,11 +2,16 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Drawing;//added
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using uStore3.DATA.EF;
+using System.Drawing.Imaging;//added for PixelFormat
+using System.Drawing.Drawing2D;//added for CompositingQuality
+using System.IO;//added for FileInfo
+using uStore3.SERVICES;
 
 namespace uStore3.UI.MVC.Controllers
 {
@@ -48,10 +53,61 @@ namespace uStore3.UI.MVC.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ProductId,ProductName,ProductDescription,Price,UnitsInStock,ProductImage,ProductStatusId")] Product product)
+        public ActionResult Create([Bind(Include = "ProductId,ProductName,ProductDescription,Price,UnitsInStock,ProductImage,ProductStatusId")] Product product, HttpPostedFileBase gmImageUpload)
         {
             if (ModelState.IsValid)
             {
+                #region FILE UPLOAD (CREATE) WITH IMAGE SERVICE
+                string imageName = "NoImage.jpg";
+
+                if (gmImageUpload != null)
+                {
+                    //find the extension
+                    imageName = gmImageUpload.FileName;
+                    string imgExtention = imageName.Substring(imageName.LastIndexOf("."));
+                    //string imgExtention = System.IO.Path.GetExtension(bkImageUpload.FileName); Another option to get extension
+
+
+                    string[] goodExtensions = { ".jpg", ".jpeg", ".gif", ".png" };
+
+                    if (goodExtensions.Contains(imgExtention.ToLower()))
+                    {
+                        imageName = Guid.NewGuid() + imgExtention; //created unique filename
+
+                        //rather than save this file to the server directly, we'll use the ImageService
+                        //to do it - makes 2 copies, main & thumbnail.
+
+                        //let's prep all the parameters that will be needed.
+                        string imgPath = Server.MapPath("~/Content/Images/_BoxCovers/"); //folder path
+
+                        Image convertedImage = Image.FromStream(gmImageUpload.InputStream); //get file as image
+
+                        //choose max img size in pixels
+                        int maxImageSize = 400;
+                        // choose max img size for thumbnail in pixels
+                        int maxThumbSize = 100;
+
+                        //call image service to rezie and save images
+
+                        ImageServices.ResizeImage(imgPath, imageName, convertedImage, maxImageSize, maxThumbSize);
+                    }
+                    else
+                    {
+                        //handle invalid file type somehow....
+                        imageName = "NoImage.jpg";
+                    }
+
+                }
+
+                //regardless of whether a file was uploaded, set the image name on the db record (hijack record)
+                product.ProductImage = imageName;
+
+                #endregion
+
+
+
+
+
                 db.Products.Add(product);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -82,10 +138,65 @@ namespace uStore3.UI.MVC.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ProductId,ProductName,ProductDescription,Price,UnitsInStock,ProductImage,ProductStatusId")] Product product)
+        public ActionResult Edit([Bind(Include = "ProductId,ProductName,ProductDescription,Price,UnitsInStock,ProductImage,ProductStatusId")] Product product, HttpPostedFileBase gmImageUpload)
         {
             if (ModelState.IsValid)
             {
+
+                            #region FILE UPLOAD (EDIT) WITH IMAGE SERVICE
+                //Variation for EDIT - Don't defaullt to no image
+                //string imageName = "NoImage.jpg";
+
+                if (gmImageUpload != null)
+                {
+                    //find the extension
+                    //Variation for EDIT variable declaration happens here add 'string'
+                    string imageName = gmImageUpload.FileName;
+                    string imgExtention = imageName.Substring(imageName.LastIndexOf("."));
+                    //string imgExtention = System.IO.Path.GetExtension(bkImageUpload.FileName); Another option to get extension
+
+
+                    string[] goodExtensions = { ".jpg", ".jpeg", ".gif", ".png" };
+
+                    if (goodExtensions.Contains(imgExtention.ToLower()))
+                    {
+                        imageName = Guid.NewGuid() + imgExtention; //created unique filename
+
+                        //rather than save this file to the server directly, we'll use the ImageService
+                        //to do it - makes 2 copies, main & thumbnail.
+
+                        //let's prep all the parameters that will be needed.
+                        string imgPath = Server.MapPath("~/Content/Images/_BoxCovers/"); //folder path
+
+                        Image convertedImage = Image.FromStream(gmImageUpload.InputStream); //get file as image
+
+                        //choose max img size in pixels
+                        int maxImageSize = 400;
+                        // choose max img size for thumbnail in pixels
+                        int maxThumbSize = 100;
+
+                        //call image service to rezie and save images
+
+                        ImageServices.ResizeImage(imgPath, imageName, convertedImage, maxImageSize, maxThumbSize);
+
+                    }
+                    else
+                    {
+                        //handle invalid file type somehow....
+                        //Variation for EDIT
+                        //imageName = "NoImage.jpg";
+                    }
+                    // Variation for EDIT
+                    product.ProductImage = imageName;
+                }
+
+                //regardless of whether a file was uploaded, set the image name on the db record (hijack record)
+
+                #endregion
+
+
+
+
                 db.Entry(product).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -115,6 +226,14 @@ namespace uStore3.UI.MVC.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Product product = db.Products.Find(id);
+
+            #region Delete Associated BookImage If it exists (Use ImageService)
+            //Set path on server where images are stored
+            string path = Server.MapPath("~/Content/Images/_BoxCovers/");
+            ImageServices.Delete(path, product.ProductImage);
+            #endregion
+
+
             db.Products.Remove(product);
             db.SaveChanges();
             return RedirectToAction("Index");

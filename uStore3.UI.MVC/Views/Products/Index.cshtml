@@ -9,8 +9,8 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
-    <tr>
+@*<table class="table">*@
+@*<tr>
         <th>
             @Html.DisplayNameFor(model => model.ProductName)
         </th>
@@ -30,34 +30,37 @@
             @Html.DisplayNameFor(model => model.ProductStatus.StatusName)
         </th>
         <th></th>
-    </tr>
+    </tr>*@
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.ProductName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ProductDescription)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Price)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UnitsInStock)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ProductImage)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ProductStatus.StatusName)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ProductId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ProductId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ProductId })
-        </td>
-    </tr>
-}
-
-</table>
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-sm-4">
+            <p>
+                @*@Html.DisplayFor(modelItem => item.ProductImage)*@
+                <img src=" ~/Content/images/_BoxCovers/@item.ProductImage" alt="" />
+            </p>
+            <p>
+                @Html.DisplayFor(modelItem => item.ProductName)
+            </p>
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.ProductDescription)
+                </td>*@
+            <p>
+                @Html.DisplayFor(modelItem => item.Price)
+            </p>
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.UnitsInStock)
+                </td>*@
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.ProductStatus.StatusName)
+                </td>*@
+            <p>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ProductId }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ProductId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ProductId })
+            </p>
+        </div>
+    }
+    </div>
+    @*</table>*@

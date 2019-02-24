@@ -224,29 +224,30 @@
     <Content Include="Content\images\img_bg_2.jpg" />
     <Content Include="Content\images\loader.gif" />
     <Content Include="Content\images\loc.png" />
+    <Content Include="Content\images\NoImage.jpg" />
     <Content Include="Content\images\person1.jpg" />
     <Content Include="Content\images\person2.jpg" />
     <Content Include="Content\images\person3.jpg" />
     <Content Include="Content\images\_bloodborne\_BloodborneBackground.jpg" />
-    <Content Include="Content\images\_bloodborne\_BloodborneBox.jpg" />
+    <Content Include="Content\images\_BoxCovers\_BloodborneBox.jpg" />
     <Content Include="Content\images\_bloodborne\_DawnOverSquare.jpg" />
     <Content Include="Content\images\_bloodborne\_FightingAMonsterInStreet.jpg" />
     <Content Include="Content\images\_bloodborne\_MonsterInCemtery.jpg" />
     <Content Include="Content\images\_bloodborne\_TorchesInStreet.jpg" />
     <Content Include="Content\images\_farcry5\_ExpirienceHopeCounty.jpg" />
     <Content Include="Content\images\_farcry5\_FarCry5Background.jpg" />
-    <Content Include="Content\images\_farcry5\_FarCry5Box.jpg" />
+    <Content Include="Content\images\_BoxCovers\_FarCry5Box.jpg" />
     <Content Include="Content\images\_farcry5\_FightTheCult.jpg" />
     <Content Include="Content\images\_farcry5\_TakeBackYouTown.jpg" />
     <Content Include="Content\images\_farcry5\_TakeToTheSkies.jpg" />
     <Content Include="Content\images\_godofwar\_GodOfWarBackground.jpg" />
-    <Content Include="Content\images\_godofwar\_GodOfWarBox.jpg" />
+    <Content Include="Content\images\_BoxCovers\_GodOfWarBox.jpg" />
     <Content Include="Content\images\_godofwar\_HeroFireWhip.jpg" />
     <Content Include="Content\images\_godofwar\_HeroLookingAtCave.jpg" />
     <Content Include="Content\images\_godofwar\_HeroLookingIntoFire.jpg" />
     <Content Include="Content\images\_godofwar\_HeroStabbingMonster_.jpg" />
     <Content Include="Content\images\_horizonzerodawn\_HorizonZeroDawnBackground.jpg" />
-    <Content Include="Content\images\_horizonzerodawn\_HorizonZeroDawnBox.jpg" />
+    <Content Include="Content\images\_BoxCovers\_HorizonZeroDawnBox.jpg" />
     <Content Include="Content\images\_horizonzerodawn\_HorizonZeroDawnRatings_.jpg" />
     <Content Include="Content\images\_horizonzerodawn\_LearningToShoot.jpg" />
     <Content Include="Content\images\_horizonzerodawn\_MountainRangeAtSunset.jpg" />
@@ -255,34 +256,34 @@
     <Content Include="Content\images\_lastofus\_JoelAndElieLookingAtBridge.jpg" />
     <Content Include="Content\images\_lastofus\_JoelWithElieInsideDuringRain.jpg" />
     <Content Include="Content\images\_lastofus\_LastOfUsRemasteredBackground.jpg" />
-    <Content Include="Content\images\_lastofus\_LastOfUsRemasteredBox.jpg" />
+    <Content Include="Content\images\_BoxCovers\_LastOfUsRemasteredBox.jpg" />
     <Content Include="Content\images\_lastofus\_SurvivorsUnderAttack.jpg" />
     <Content Include="Content\images\_madden19HOF\_CardsVRams.jpg" />
     <Content Include="Content\images\_madden19HOF\_CowboysVNiners.jpg" />
     <Content Include="Content\images\_madden19HOF\_Madden19HOFBackground.jpg" />
-    <Content Include="Content\images\_madden19HOF\_Madden19HOFBox.jpg" />
+    <Content Include="Content\images\_BoxCovers\_Madden19HOFBox.jpg" />
     <Content Include="Content\images\_madden19HOF\_PittVClev.jpg" />
     <Content Include="Content\images\_nba2k19\_BenSimmons.jpg" />
     <Content Include="Content\images\_nba2k19\_Giannis.jpg" />
     <Content Include="Content\images\_nba2k19\_Lebron.jpg" />
     <Content Include="Content\images\_nba2k19\_NBA2K19Background.jpg" />
-    <Content Include="Content\images\_nba2k19\_NBA2K19Box.jpg" />
+    <Content Include="Content\images\_BoxCovers\_NBA2K19Box.jpg" />
     <Content Include="Content\images\_reddeadredemption2\CowboyAndCowgirlInShootout.jpg" />
     <Content Include="Content\images\_reddeadredemption2\_CowboyRidingFastIntoSunset.jpg" />
     <Content Include="Content\images\_reddeadredemption2\_RedDeadRedemption2Background.jpg" />
-    <Content Include="Content\images\_reddeadredemption2\_RedDeadRedemption2Box.jpg" />
+    <Content Include="Content\images\_BoxCovers\_RedDeadRedemption2Box.jpg" />
     <Content Include="Content\images\_reddeadredemption2\_SmokingManWithWomanFanningHerself.jpg" />
     <Content Include="Content\images\_reddeadredemption2\_TwoBanditsInGunFight_.jpg" />
     <Content Include="Content\images\_spiderman\_BeSpiderman_.jpg" />
     <Content Include="Content\images\_spiderman\_PeterParkerAndMaryJane.jpg" />
     <Content Include="Content\images\_spiderman\_SpidermanBackground.jpg" />
-    <Content Include="Content\images\_spiderman\_SpidermanBox.jpg" />
+    <Content Include="Content\images\_BoxCovers\_SpidermanBox.jpg" />
     <Content Include="Content\images\_spiderman\_SpidermanWithGameRatings.jpg" />
     <Content Include="Content\images\_UnchartedNDC\_NathanAndCloeBattleHelicopter.jpg" />
     <Content Include="Content\images\_UnchartedNDC\_NathanDrakeInLightTan.jpg" />
     <Content Include="Content\images\_UnchartedNDC\_NathanNearPool.jpg" />
     <Content Include="Content\images\_UnchartedNDC\_NathanOverlookingCity.jpg" />
-    <Content Include="Content\images\_UnchartedNDC\_UnchartedNDC.jpg" />
+    <Content Include="Content\images\_BoxCovers\_UnchartedNDC.jpg" />
     <Content Include="Content\images\_UnchartedNDC\_UnchartedNDCBackground.jpg" />
     <Content Include="Content\js\bootstrap.min.js" />
     <Content Include="Content\js\custom.js" />
@@ -480,6 +481,7 @@
     <Content Include="Views\UserOrders\Details.cshtml" />
     <Content Include="Views\UserOrders\Edit.cshtml" />
     <Content Include="Views\UserOrders\Index.cshtml" />
+    <Content Include="_archive\_Layout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -494,6 +496,13 @@
       <Project>{1fceb23d-9c73-4025-a6d0-f837fcbefd86}</Project>
       <Name>uStore3.DATA.EF</Name>
     </ProjectReference>
+    <ProjectReference Include="..\uStore3.SERVICES\uStore3.SERVICES.csproj">
+      <Project>{6d70012f-e468-4a8b-bf3e-1d6f57b2b78d}</Project>
+      <Name>uStore3.SERVICES</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="_archive\Product\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
