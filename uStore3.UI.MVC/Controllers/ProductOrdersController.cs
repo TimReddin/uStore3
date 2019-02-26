@@ -10,6 +10,7 @@ using uStore3.DATA.EF;
 
 namespace uStore3.UI.MVC.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class ProductOrdersController : Controller
     {
         private uStore2Entities db = new uStore2Entities();

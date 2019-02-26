@@ -221,6 +221,8 @@
     <Content Include="Content\css\owl.carousel.min.css" />
     <Content Include="Content\css\owl.theme.default.min.css" />
     <Content Include="Content\css\style.css" />
+    <Content Include="Content\images\GameCollection.jpg" />
+    <Content Include="Content\images\gameHaul.jpg" />
     <Content Include="Content\images\img_bg_2.jpg" />
     <Content Include="Content\images\loader.gif" />
     <Content Include="Content\images\loc.png" />
@@ -228,6 +230,7 @@
     <Content Include="Content\images\person1.jpg" />
     <Content Include="Content\images\person2.jpg" />
     <Content Include="Content\images\person3.jpg" />
+    <Content Include="Content\images\PS4Splash.jpg" />
     <Content Include="Content\images\_bloodborne\_BloodborneBackground.jpg" />
     <Content Include="Content\images\_BoxCovers\_BloodborneBox.jpg" />
     <Content Include="Content\images\_bloodborne\_DawnOverSquare.jpg" />
@@ -492,6 +495,10 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\uStore.DOMAIN\uStore.DOMAIN.csproj">
+      <Project>{b6c7a18b-a9b5-408b-8fd6-bf8f29fe27d5}</Project>
+      <Name>uStore.DOMAIN</Name>
+    </ProjectReference>
     <ProjectReference Include="..\uStore3.DATA.EF\uStore3.DATA.EF.csproj">
       <Project>{1fceb23d-9c73-4025-a6d0-f837fcbefd86}</Project>
       <Name>uStore3.DATA.EF</Name>

@@ -7,17 +7,22 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using uStore3.DATA.EF;
+using uStore3.SERVICES;
+using uStore.DOMAIN.Repositories;
 
 namespace uStore3.UI.MVC.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class CategoriesController : Controller
     {
-        private uStore2Entities db = new uStore2Entities();
+        //private uStore2Entities db = new uStore2Entities();
+        UnitOfWork uow = new UnitOfWork();
 
         // GET: Categories
         public ActionResult Index()
         {
-            return View(db.Categories.ToList());
+            //return View(db.Categories.ToList());
+            return View(uow.CategoryRepository.Get());
         }
 
         // GET: Categories/Details/5
@@ -27,7 +32,8 @@ namespace uStore3.UI.MVC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Category category = db.Categories.Find(id);
+            //Category category = db.Categories.Find(id);
+            Category category = uow.CategoryRepository.Find(id);
             if (category == null)
             {
                 return HttpNotFound();
@@ -50,8 +56,11 @@ namespace uStore3.UI.MVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Categories.Add(category);
-                db.SaveChanges();
+                //db.Categories.Add(category);
+                //db.SaveChanges();
+
+                uow.CategoryRepository.Add(category);
+                uow.Save();
                 return RedirectToAction("Index");
             }
 
@@ -65,7 +74,8 @@ namespace uStore3.UI.MVC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Category category = db.Categories.Find(id);
+            //Category category = db.Categories.Find(id);
+            Category category = uow.CategoryRepository.Find(id);
             if (category == null)
             {
                 return HttpNotFound();
@@ -82,8 +92,11 @@ namespace uStore3.UI.MVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(category).State = EntityState.Modified;
-                db.SaveChanges();
+                //db.Entry(category).State = EntityState.Modified;
+                //db.SaveChanges();
+
+                uow.CategoryRepository.Update(category);
+                uow.Save();
                 return RedirectToAction("Index");
             }
             return View(category);
@@ -96,7 +109,8 @@ namespace uStore3.UI.MVC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Category category = db.Categories.Find(id);
+            //Category category = db.Categories.Find(id);
+            Category category = uow.CategoryRepository.Find(id);
             if (category == null)
             {
                 return HttpNotFound();
@@ -109,9 +123,13 @@ namespace uStore3.UI.MVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Category category = db.Categories.Find(id);
-            db.Categories.Remove(category);
-            db.SaveChanges();
+            //Category category = db.Categories.Find(id);
+            Category category = uow.CategoryRepository.Find(id);
+            //db.Categories.Remove(category);
+            //db.SaveChanges();
+
+            uow.CategoryRepository.Remove(category);
+            uow.Save();
             return RedirectToAction("Index");
         }
 
@@ -119,7 +137,7 @@ namespace uStore3.UI.MVC.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                uow.Dispose();
             }
             base.Dispose(disposing);
         }

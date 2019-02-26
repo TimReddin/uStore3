@@ -2,22 +2,33 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Drawing;//added
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using uStore3.DATA.EF;
+using System.Drawing.Imaging;//added for PixelFormat
+using System.Drawing.Drawing2D;//added for CompositingQuality
+using System.IO;//added for FileInfo
+using uStore3.SERVICES;
+using uStore.DOMAIN.Repositories;
 
 namespace uStore3.UI.MVC.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class ProductStatusController : Controller
     {
-        private uStore2Entities db = new uStore2Entities();
+        //private uStore2Entities db = new uStore2Entities();
+        UnitOfWork uow = new UnitOfWork();
 
         // GET: ProductStatus
         public ActionResult Index()
         {
-            return View(db.ProductStatuses.ToList());
+            //return View(db.ProductStatuses.ToList());
+            var products = uow.ProductStatusRepository.Get();
+            return View(products.ToList());
+           
         }
 
         // GET: ProductStatus/Details/5
@@ -27,7 +38,8 @@ namespace uStore3.UI.MVC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ProductStatus productStatus = db.ProductStatuses.Find(id);
+            //ProductStatus productStatus = db.ProductStatuses.Find(id);
+            ProductStatus productStatus = uow.ProductStatusRepository.Find(id);
             if (productStatus == null)
             {
                 return HttpNotFound();
@@ -50,8 +62,11 @@ namespace uStore3.UI.MVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.ProductStatuses.Add(productStatus);
-                db.SaveChanges();
+                //db.ProductStatuses.Add(productStatus);
+                //db.SaveChanges();
+
+                uow.ProductStatusRepository.Add(productStatus);
+                uow.Save();
                 return RedirectToAction("Index");
             }
 
@@ -65,7 +80,8 @@ namespace uStore3.UI.MVC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ProductStatus productStatus = db.ProductStatuses.Find(id);
+            //ProductStatus productStatus = db.ProductStatuses.Find(id);
+            ProductStatus productStatus = uow.ProductStatusRepository.Find(id);
             if (productStatus == null)
             {
                 return HttpNotFound();
@@ -82,8 +98,11 @@ namespace uStore3.UI.MVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(productStatus).State = EntityState.Modified;
-                db.SaveChanges();
+                //db.Entry(productStatus).State = EntityState.Modified;
+                //db.SaveChanges();
+
+                uow.ProductStatusRepository.Update(productStatus);
+                uow.Save();
                 return RedirectToAction("Index");
             }
             return View(productStatus);
@@ -96,7 +115,8 @@ namespace uStore3.UI.MVC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ProductStatus productStatus = db.ProductStatuses.Find(id);
+            //ProductStatus productStatus = db.ProductStatuses.Find(id);
+            ProductStatus productStatus = uow.ProductStatusRepository.Find(id);
             if (productStatus == null)
             {
                 return HttpNotFound();
@@ -109,9 +129,14 @@ namespace uStore3.UI.MVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(byte id)
         {
-            ProductStatus productStatus = db.ProductStatuses.Find(id);
-            db.ProductStatuses.Remove(productStatus);
-            db.SaveChanges();
+            //ProductStatus productStatus = db.ProductStatuses.Find(id);
+            ProductStatus productStatus = uow.ProductStatusRepository.Find(id);
+
+            //db.ProductStatuses.Remove(productStatus);
+            //db.SaveChanges();
+
+            uow.ProductStatusRepository.Remove(productStatus);
+            uow.Save();
             return RedirectToAction("Index");
         }
 
@@ -119,7 +144,7 @@ namespace uStore3.UI.MVC.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                uow.Dispose();
             }
             base.Dispose(disposing);
         }

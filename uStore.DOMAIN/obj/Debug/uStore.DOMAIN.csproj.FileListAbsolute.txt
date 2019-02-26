@@ -1,0 +1,12 @@
+C:\Users\student\Documents\Visual Studio 2015\Projects\uStore3\src\uStore.DOMAIN\bin\Debug\uStore.DOMAIN.dll.config
+C:\Users\student\Documents\Visual Studio 2015\Projects\uStore3\src\uStore.DOMAIN\bin\Debug\uStore.DOMAIN.dll
+C:\Users\student\Documents\Visual Studio 2015\Projects\uStore3\src\uStore.DOMAIN\bin\Debug\uStore.DOMAIN.pdb
+C:\Users\student\Documents\Visual Studio 2015\Projects\uStore3\src\uStore.DOMAIN\bin\Debug\EntityFramework.dll
+C:\Users\student\Documents\Visual Studio 2015\Projects\uStore3\src\uStore.DOMAIN\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\student\Documents\Visual Studio 2015\Projects\uStore3\src\uStore.DOMAIN\bin\Debug\uStore3.DATA.EF.dll
+C:\Users\student\Documents\Visual Studio 2015\Projects\uStore3\src\uStore.DOMAIN\bin\Debug\uStore3.DATA.EF.pdb
+C:\Users\student\Documents\Visual Studio 2015\Projects\uStore3\src\uStore.DOMAIN\bin\Debug\EntityFramework.xml
+C:\Users\student\Documents\Visual Studio 2015\Projects\uStore3\src\uStore.DOMAIN\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\student\Documents\Visual Studio 2015\Projects\uStore3\src\uStore.DOMAIN\obj\Debug\uStore.DOMAIN.csprojResolveAssemblyReference.cache
+C:\Users\student\Documents\Visual Studio 2015\Projects\uStore3\src\uStore.DOMAIN\obj\Debug\uStore.DOMAIN.dll
+C:\Users\student\Documents\Visual Studio 2015\Projects\uStore3\src\uStore.DOMAIN\obj\Debug\uStore.DOMAIN.pdb

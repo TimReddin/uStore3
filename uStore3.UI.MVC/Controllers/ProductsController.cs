@@ -12,28 +12,51 @@ using System.Drawing.Imaging;//added for PixelFormat
 using System.Drawing.Drawing2D;//added for CompositingQuality
 using System.IO;//added for FileInfo
 using uStore3.SERVICES;
+using uStore.DOMAIN.Repositories;
 
 namespace uStore3.UI.MVC.Controllers
 {
+    [Authorize]
     public class ProductsController : Controller
     {
-        private uStore2Entities db = new uStore2Entities();
+        //private uStore2Entities db = new uStore2Entities();
+
+        UnitOfWork uow = new UnitOfWork();
 
         // GET: Products
-        public ActionResult Index()
+        [AllowAnonymous]
+        public ActionResult Index(string category)
         {
-            var products = db.Products.Include(p => p.ProductStatus);
-            return View(products.ToList());
+            //var products = db.Products.Include(p => p.ProductStatus);
+            var products = uow.ProductRepository.Get(includeProperties: "ProductStatus");
+
+            if (String.IsNullOrEmpty(category))
+            {             
+                return View(products.ToList());
+            }
+            else
+            {
+                //OR LINQ method chaining syntax option (same result):
+                List<Product> searchResultsV2 =
+                    (uow.ProductRepository.Get()
+                    .Where(x => x.ProductStatus.StatusName.Contains(category)).ToList());
+                return View(products.ToList());
+            }
+            
+            
         }
 
         // GET: Products/Details/5
+        [AllowAnonymous]
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Product product = db.Products.Find(id);
+            //Product product = db.Products.Find(id);
+            Product product = uow.ProductRepository.Find(id);
+
             if (product == null)
             {
                 return HttpNotFound();
@@ -42,9 +65,10 @@ namespace uStore3.UI.MVC.Controllers
         }
 
         // GET: Products/Create
+        [Authorize(Roles = "Admin, Customer Service")]
         public ActionResult Create()
         {
-            ViewBag.ProductStatusId = new SelectList(db.ProductStatuses, "ProductStatusId", "StatusName");
+            ViewBag.ProductStatusId = new SelectList(uow.ProductStatusRepository.Get(), "ProductStatusId", "StatusName");
             return View();
         }
 
@@ -53,6 +77,7 @@ namespace uStore3.UI.MVC.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin, Customer Service")]
         public ActionResult Create([Bind(Include = "ProductId,ProductName,ProductDescription,Price,UnitsInStock,ProductImage,ProductStatusId")] Product product, HttpPostedFileBase gmImageUpload)
         {
             if (ModelState.IsValid)
@@ -104,32 +129,34 @@ namespace uStore3.UI.MVC.Controllers
 
                 #endregion
 
+                //db.Products.Add(product);
+                //db.SaveChanges();
 
-
-
-
-                db.Products.Add(product);
-                db.SaveChanges();
+                uow.ProductRepository.Add(product);
+                uow.Save();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.ProductStatusId = new SelectList(db.ProductStatuses, "ProductStatusId", "StatusName", product.ProductStatusId);
+            ViewBag.ProductStatusId = new SelectList(uow.ProductStatusRepository.Get(), "ProductStatusId", "StatusName", product.ProductStatusId);
             return View(product);
         }
 
         // GET: Products/Edit/5
+        [Authorize(Roles = "Admin, Customer Service")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Product product = db.Products.Find(id);
+            //Product product = db.Products.Find(id);
+            Product product = uow.ProductRepository.Find(id);
+
             if (product == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.ProductStatusId = new SelectList(db.ProductStatuses, "ProductStatusId", "StatusName", product.ProductStatusId);
+            ViewBag.ProductStatusId = new SelectList(uow.ProductStatusRepository.Get(), "ProductStatusId", "StatusName", product.ProductStatusId);
             return View(product);
         }
 
@@ -138,6 +165,7 @@ namespace uStore3.UI.MVC.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin, Customer Service")]
         public ActionResult Edit([Bind(Include = "ProductId,ProductName,ProductDescription,Price,UnitsInStock,ProductImage,ProductStatusId")] Product product, HttpPostedFileBase gmImageUpload)
         {
             if (ModelState.IsValid)
@@ -197,22 +225,27 @@ namespace uStore3.UI.MVC.Controllers
 
 
 
-                db.Entry(product).State = EntityState.Modified;
-                db.SaveChanges();
+                //db.Entry(product).State = EntityState.Modified;
+                //db.SaveChanges();
+
+                uow.ProductRepository.Update(product);
+                uow.Save();
                 return RedirectToAction("Index");
             }
-            ViewBag.ProductStatusId = new SelectList(db.ProductStatuses, "ProductStatusId", "StatusName", product.ProductStatusId);
+            ViewBag.ProductStatusId = new SelectList(uow.ProductStatusRepository.Get(), "ProductStatusId", "StatusName", product.ProductStatusId);
             return View(product);
         }
 
         // GET: Products/Delete/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Product product = db.Products.Find(id);
+            //Product product = db.Products.Find(id);
+            Product product = uow.ProductRepository.Find(id);
             if (product == null)
             {
                 return HttpNotFound();
@@ -223,9 +256,11 @@ namespace uStore3.UI.MVC.Controllers
         // POST: Products/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult DeleteConfirmed(int id)
         {
-            Product product = db.Products.Find(id);
+            //Product product = db.Products.Find(id);
+            Product product = uow.ProductRepository.Find(id);
 
             #region Delete Associated BookImage If it exists (Use ImageService)
             //Set path on server where images are stored
@@ -234,8 +269,11 @@ namespace uStore3.UI.MVC.Controllers
             #endregion
 
 
-            db.Products.Remove(product);
-            db.SaveChanges();
+            //db.Products.Remove(product);
+            //db.SaveChanges();
+
+            uow.ProductRepository.Remove(product);
+            uow.Save();
             return RedirectToAction("Index");
         }
 
@@ -243,7 +281,7 @@ namespace uStore3.UI.MVC.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                uow.Dispose();
             }
             base.Dispose(disposing);
         }
