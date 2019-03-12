@@ -2,3 +2,4 @@ C:\Users\student\Documents\Visual Studio 2015\Projects\uStore3\src\uStore3.SERVI
 C:\Users\student\Documents\Visual Studio 2015\Projects\uStore3\src\uStore3.SERVICES\bin\Debug\uStore3.SERVICES.pdb
 C:\Users\student\Documents\Visual Studio 2015\Projects\uStore3\src\uStore3.SERVICES\obj\Debug\uStore3.SERVICES.dll
 C:\Users\student\Documents\Visual Studio 2015\Projects\uStore3\src\uStore3.SERVICES\obj\Debug\uStore3.SERVICES.pdb
+C:\Users\student\Documents\Visual Studio 2015\Projects\uStore3\src\uStore3.SERVICES\obj\Debug\uStore3.SERVICES.csprojResolveAssemblyReference.cache

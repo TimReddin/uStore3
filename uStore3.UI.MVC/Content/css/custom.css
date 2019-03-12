@@ -83,33 +83,19 @@
     margin: auto;
 }
 
-/*.jumbotron{
-    background:none;
-    align-items:center;
-}*/
-
-/*.homeindex {
-    /*background-image: url('../images/ps4splash.jpg');*/
-    /*background-image: url('../images/gameHaul.jpg');*/
-    /*background-image: url('../images/gamecollection.jpg');
-    background-repeat: no-repeat;
-    background-size: 800px, 500px;
-    font-family: "montserrat", arial, sans-serif;
-    color:blanchedalmond;
-}
-*/
-
-.productPanel{
-min-height:575px;
+.productPanel {
+    min-height: 600px;
 }
 
-/*.container{
-    min-height:100%;
+a {
+    color: #ac850b;
 }
 
-.footer{
-    position:absolute;
-    bottom:0;*/
+dd img {
+    margin-bottom:2em;
+}
+.navbarButton{
+    padding:0;
 }
 
 /*.owl-carousel .owl-item img{

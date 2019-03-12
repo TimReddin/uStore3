@@ -187,6 +187,7 @@
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AdminViewModel.cs" />
+    <Compile Include="Models\ContactViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -485,6 +486,7 @@
     <Content Include="Views\UserOrders\Edit.cshtml" />
     <Content Include="Views\UserOrders\Index.cshtml" />
     <Content Include="_archive\_Layout.cshtml" />
+    <Content Include="Views\Home\ContactConfirmation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

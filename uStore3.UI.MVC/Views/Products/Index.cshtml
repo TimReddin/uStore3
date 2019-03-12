@@ -1,15 +1,16 @@
 ﻿@model IEnumerable<uStore3.DATA.EF.Product>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Products";
 }
 
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-
+<h2>@ViewBag.Title</h2>
+@if (Request.IsAuthenticated && User.IsInRole("Admin") || User.IsInRole("Customer Service"))
+{
+    <p>
+        <span class="btn btn-default">@Html.ActionLink("Add Product", "Create")</span>
+    </p>
+}
 <div class="container">
     <div class="row">
 
@@ -25,14 +26,16 @@
                     @Html.DisplayFor(modelItem => item.Price)
                 </p>
                 <p>
-                    @Html.ActionLink("Details", "Details", new { id = item.ProductId }) |
+                    <span class="btn btn-default"> @Html.ActionLink("Details", "Details", new { id = item.ProductId }) </span>
                     @if (Request.IsAuthenticated && User.IsInRole("Admin") || User.IsInRole("Customer Service"))
                     {
-                        @Html.ActionLink("Edit", "Edit", new { id = item.ProductId }) @:|
+                        <span class="btn btn-default">
+                            @Html.ActionLink("Edit", "Edit", new { id = item.ProductId })
+                        </span>
                     }
                     @if (Request.IsAuthenticated && User.IsInRole("Admin"))
                     {
-                        @Html.ActionLink("Delete", "Delete", new { id = item.ProductId })
+                        <span class="btn btn-default">@Html.ActionLink("Delete", "Delete", new { id = item.ProductId })</span>
                     }
 
 

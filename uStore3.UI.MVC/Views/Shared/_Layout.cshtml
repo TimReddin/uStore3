@@ -64,18 +64,18 @@
         <nav class="fh5co-nav" role="navigation">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-3 col-xs-2">
+                    <div class="col-md-4 col-xs-2">
                         <div id="fh5co-logo"><a href="@Url.Action("Index", "Home")">Gamers Corner.</a></div>
                     </div>
-                    <div class="col-md-3 col-xs-3 text-center menu-1">
+                    <div class="col-md-3 col-xs-3 text-center menu-1" >
                         <ul>
-                            <li><a href="@Url.Action("Index", "Home")">Home</a></li>
-                            <li><a href="@Url.Action("Index", "Products")">Shop</a></li>
-                            <li><a href="@Url.Action("Contact", "Home")">Contact</a></li>
+                            <li><a href="@Url.Action("Index", "Home")" class="navbarButton">Home</a></li>
+                            <li><a href="@Url.Action("Index", "Products")" class="navbarButton">Shop</a></li>
+                            <li><a href="@Url.Action("Contact", "Home")" class="navbarButton">Contact</a></li>
                             @if (Request.IsAuthenticated && User.IsInRole("Admin"))
                             {
-                                <li><a href="@Url.Action("Index", "RolesAdmin")">Roles Admin</a></li>
-                                <li><a href="@Url.Action("Index", "UsersAdmin")">Users Admin</a></li>
+                                <li><a href="@Url.Action("Index", "RolesAdmin")" class="navbarButton">Roles Admin</a></li>
+                                <li><a href="@Url.Action("Index", "UsersAdmin")" class="navbarButton">Users Admin</a></li>
                             }
                         </ul>
                         
